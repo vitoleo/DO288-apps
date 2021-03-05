@@ -66,7 +66,7 @@ pipeline {
 			--build-env npm_config-registry=${NEXUS_SERVER} \
 			--context-dir {APP_NAME}
 
-			oc expose scv/${APP_NAME}
+			oc expose svc/${APP_NAME}
 		'''
             }
         }
@@ -132,7 +132,7 @@ pipeline {
 			oc project ${STAGE_PROJECT}
 			oc new-app --as-deployment-config --name books -i books:stage
 			
-			oc expose scv/${APP_NAME}
+			oc expose svc/${APP_NAME}
 		'''
 
             }
