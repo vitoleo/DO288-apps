@@ -62,8 +62,8 @@ pipeline {
                 //TODO: Create a new app and expose the service
 		sh '''
 			oc project ${DEV_PROJECT}
-			oc new-app --as-deployment-config --name books nodejs:12~${APP_GIT_URL}
-			--build-env npm_config-registry=${NEXUS_SERVER}
+			oc new-app --as-deployment-config --name books nodejs:12~${APP_GIT_URL} \
+			--build-env npm_config-registry=${NEXUS_SERVER} \
 			--context-dir {APP_NAME}
 
 			oc expose scv/${APP_NAME}
