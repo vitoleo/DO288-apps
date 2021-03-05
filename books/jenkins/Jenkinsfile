@@ -63,7 +63,7 @@ pipeline {
 		sh '''
 			oc project ${DEV_PROJECT}
 			oc new-app --as-deployment-config --name books nodejs:12~${APP_GIT_URL}
-			--build-env npm_config-registr=${NEXUS_SERVER}
+			--build-env npm_config-registry=${NEXUS_SERVER}
 			--context-dir {APP_NAME}
 
 			oc expose scv/${APP_NAME}
@@ -147,8 +147,8 @@ pipeline {
 
                     openshift.withCluster() {
                         //TODO: Watch deployment until pod is in 'Running' state
-			openshift.withProject( "${STAHE_PRJECT}" ) {
-				def deployment = openshift.selectodcr("dc","{APP_NAME}")
+			openshift.withProject( "${STAGE_PROJECT}" ) {
+				def deployment = openshift.selector("dc","{APP_NAME}")
 				deployment.rollout()
 				deployment.related('pods').untilEach(1) {
 					return (it.object().status.phase == "Running")
