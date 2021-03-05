@@ -109,7 +109,7 @@ pipeline {
                     input message: "Promote to Staging?"
                 }
                 //TODO: Tag the books:latest image stream as books:stage
-		openhift.WithCluster() {
+		openshift.WithCluster() {
 			openshift.tag("${DEV_PROJECT}/books:latest", "${STAGE_PROJECT}/books:stage")
 		}
             }
